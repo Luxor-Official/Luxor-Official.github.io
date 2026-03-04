@@ -3,21 +3,30 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Variable Studios | Debuggr Executor</title>
+<title>Variable Studios</title>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;800&display=swap" rel="stylesheet">
 
 <style>
 :root{
-    --bg:#0a0a0f;
-    --panel:#11131a;
-    --panel-2:#151823;
-    --accent:#00b3ff;
-    --accent-glow:rgba(0,179,255,0.6);
+    --bg:#0a0f18;
     --text:#e6f1ff;
     --muted:#6e7a8a;
+    --card:#111827;
     --border:rgba(0,179,255,0.15);
+    --nav:rgba(10,15,24,0.95);
+    --accent:#00b3ff;
+    --accent-glow:rgba(0,179,255,0.6);
+}
+
+body.light{
+    --bg:#f4f7fb;
+    --text:#111827;
+    --muted:#4b5563;
+    --card:#ffffff;
+    --border:rgba(0,0,0,0.08);
+    --nav:rgba(255,255,255,0.95);
 }
 
 *{
@@ -30,12 +39,13 @@
 html{scroll-behavior:smooth;}
 
 body{
-    background: radial-gradient(circle at top, #0f1320 0%, #0a0a0f 60%);
+    background:radial-gradient(circle at top,#0f172a 0%,#0a0f18 60%);
     color:var(--text);
-    overflow-x:hidden;
+    transition:.3s;
+    position:relative;
 }
 
-/* GRID BACKGROUND */
+/* Grid background */
 body::before{
     content:"";
     position:fixed;
@@ -48,22 +58,39 @@ body::before{
     z-index:-2;
 }
 
-/* SCANLINES */
-.scanlines{
+/* Notice Banner */
+#notice-banner{
     position:fixed;
-    inset:0;
-    pointer-events:none;
-    background: repeating-linear-gradient(
-        to bottom,
-        rgba(0,0,0,0) 0px,
-        rgba(0,0,0,0) 2px,
-        rgba(0,0,0,0.15) 3px
-    );
-    mix-blend-mode: overlay;
-    z-index:999;
+    top:0;
+    left:0;
+    width:100%;
+    background:var(--accent);
+    color:#000;
+    text-align:center;
+    padding:15px 20px;
+    font-weight:600;
+    z-index:2000;
+    display:none;
+    justify-content:center;
+    align-items:center;
+    gap:15px;
+}
+#notice-close{
+    cursor:pointer;
+    font-size:20px;
 }
 
-/* NAV */
+/* Particles */
+#particles-bg{
+    position:fixed;
+    inset:0;
+    width:100%;
+    height:100%;
+    z-index:-1;
+    pointer-events:none;
+}
+
+/* Navigation */
 nav{
     position:fixed;
     width:100%;
@@ -71,9 +98,9 @@ nav{
     display:flex;
     justify-content:space-between;
     align-items:center;
-    background:rgba(10,10,15,0.95);
+    backdrop-filter:blur(15px);
+    background:var(--nav);
     border-bottom:1px solid var(--border);
-    backdrop-filter: blur(20px);
     z-index:1000;
 }
 
@@ -99,41 +126,65 @@ nav a:hover{
     color:var(--accent);
 }
 
-/* HERO */
+.theme-toggle{
+    background:var(--card);
+    border:1px solid var(--border);
+    width:40px;
+    height:40px;
+    border-radius:6px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+}
+
+/* Hero */
 .hero{
-    height:100vh;
+    height:90vh;
     display:flex;
     flex-direction:column;
     justify-content:center;
     align-items:center;
     text-align:center;
-    gap:20px;
-    padding:0 20px;
+    padding:0 15px;
+    gap:15px;
 }
 
 .hero h2{
-    font-size:clamp(40px,6vw,70px);
+    font-size:clamp(36px,7vw,70px);
     color:var(--accent);
     text-shadow:0 0 25px var(--accent-glow);
 }
 
 .hero p{
+    font-size:16px;
+    max-width:600px;
     color:var(--muted);
 }
 
-/* BUTTONS */
+.hero-buttons{
+    display:flex;
+    gap:15px;
+    flex-wrap:wrap;
+    justify-content:center;
+}
+
+/* Buttons */
 .btn{
-    padding:12px 30px;
+    padding:12px 28px;
     border-radius:6px;
+    font-size:14px;
     text-decoration:none;
-    font-weight:600;
-    letter-spacing:1px;
-    transition:.3s;
+    display:flex;
+    align-items:center;
+    gap:8px;
+    transition:.3s ease;
 }
 
 .primary-btn{
     background:var(--accent);
     color:#000;
+    font-weight:600;
     box-shadow:0 0 20px var(--accent-glow);
 }
 
@@ -152,22 +203,7 @@ nav a:hover{
     color:#000;
 }
 
-/* CONSOLE */
-.console-box{
-    margin-top:30px;
-    background:var(--panel-2);
-    padding:25px;
-    border-radius:10px;
-    border:1px solid var(--border);
-    color:var(--accent);
-    font-size:14px;
-    text-align:left;
-    width:100%;
-    max-width:600px;
-    box-shadow:0 0 20px rgba(0,0,0,0.5);
-}
-
-/* SECTIONS */
+/* Sections */
 .section{
     padding:100px 40px;
     text-align:center;
@@ -175,7 +211,7 @@ nav a:hover{
 
 .section h3{
     font-size:32px;
-    margin-bottom:20px;
+    margin-bottom:15px;
     color:var(--accent);
 }
 
@@ -184,29 +220,34 @@ nav a:hover{
 }
 
 .section p{
+    font-size:15px;
     color:var(--muted);
     max-width:600px;
     margin:auto;
 }
 
-/* GRID */
+/* Grid */
 .grid{
     margin-top:40px;
     display:grid;
     grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-    gap:25px;
+    gap:20px;
 }
 
-/* CARDS */
-.card{
-    padding:25px;
-    background:var(--panel);
-    border:1px solid var(--border);
+/* Cards */
+.card,
+.review-card,
+.preview-card{
+    padding:25px 20px;
     border-radius:10px;
+    background:var(--card);
+    border:1px solid var(--border);
     transition:.3s;
 }
 
-.card:hover{
+.card:hover,
+.review-card:hover,
+.preview-card:hover{
     border-color:var(--accent);
     box-shadow:0 0 25px var(--accent-glow);
     transform:translateY(-4px);
@@ -214,10 +255,59 @@ nav a:hover{
 
 .card i{
     font-size:24px;
-    margin-bottom:15px;
+    margin-bottom:10px;
     color:var(--accent);
 }
 
+.card p{
+    font-size:14px;
+    color:var(--muted);
+}
+
+/* Preview */
+.preview-container{position:relative;margin-top:40px;overflow:hidden;}
+.preview-slider{display:flex;gap:15px;overflow-x:auto;scroll-behavior:smooth;padding-bottom:10px;}
+.preview-slider::-webkit-scrollbar{display:none;}
+.preview-card img{width:100%;border-radius:8px;margin-bottom:10px;}
+
+.preview-arrow{
+    position:absolute;
+    top:50%;
+    transform:translateY(-50%);
+    background:var(--card);
+    border:1px solid var(--border);
+    width:40px;
+    height:40px;
+    border-radius:6px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+    z-index:10;
+}
+.arrow-left{left:10px;}
+.arrow-right{right:10px;}
+
+/* Reviews */
+.review-header{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin-bottom:12px;
+}
+.review-header img{
+    width:50px;
+    height:50px;
+    border-radius:50%;
+    object-fit:cover;
+    border:2px solid var(--border);
+}
+.stars{
+    color:var(--accent);
+    margin-bottom:10px;
+}
+
+/* Pricing */
 .price{
     font-size:36px;
     margin:15px 0;
@@ -228,17 +318,29 @@ nav a:hover{
 .pricing-list{
     list-style:none;
     margin:20px 0;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    font-size:14px;
     color:var(--muted);
 }
 
-.pricing-list li{
-    margin-bottom:8px;
+.pricing-list li::before{
+    content:"✓ ";
+    color:var(--accent);
 }
 
+.featured{
+    border:1px solid var(--accent);
+    box-shadow:0 0 40px var(--accent-glow);
+}
+
+/* Footer */
 footer{
-    padding:40px;
+    padding:40px 20px;
     text-align:center;
     color:var(--muted);
+    font-size:14px;
     border-top:1px solid var(--border);
 }
 </style>
@@ -246,38 +348,44 @@ footer{
 
 <body>
 
-<div class="scanlines"></div>
+<div id="notice-banner">
+    <p>Debuggr v1.0 is now live.</p>
+    <div id="notice-close">×</div>
+</div>
+
+<canvas id="particles-bg"></canvas>
 
 <nav>
-    <h1>DEBUGGR EXECUTOR</h1>
+    <h1>Variable Studios</h1>
     <ul>
         <li><a href="#about">About</a></li>
         <li><a href="#features">Features</a></li>
         <li><a href="#pricing">Pricing</a></li>
+        <li><a href="#preview">Preview</a></li>
+        <li><a href="#reviews">Reviews</a></li>
     </ul>
+    <div class="theme-toggle" id="toggle"><i class="fa-solid fa-moon"></i></div>
 </nav>
 
 <section class="hero">
-    <h2>Debuggr v1.0</h2>
-    <p>> Injection Ready<br>> Live Runtime Debugging<br>> Status: Connected</p>
-
-    <div>
-        <a href="#" class="btn primary-btn">Inject</a>
-        <a href="#" class="btn secondary-btn">Documentation</a>
-    </div>
-
-    <div class="console-box">
-        <p>> Connecting to game...</p>
-        <p>> Bypassing security...</p>
-        <p>> Injecting Debuggr...</p>
-        <p>> Hooked successfully.</p>
-        <p>> Ready.</p>
+    <h2>Debuggr Control Panel</h2>
+    <p>Live in-game debugging with a clean, powerful developer interface built for Roblox creators.</p>
+    <div class="hero-buttons">
+        <a href="https://discord.gg/2SmMSSkmmv" target="_blank" class="btn primary-btn">
+            <i class="fa-brands fa-discord"></i> Join Discord
+        </a>
+        <a href="https://www.roblox.com/communities/753140944/Variable-Official#!/about" target="_blank" class="btn secondary-btn">
+            <i class="fa-solid fa-people-group"></i> Roblox Group
+        </a>
+        <a href="https://vaultroblox.com/9b83924d-1cd1-413a-8832-ec0a52fa76f0" target="_blank" class="btn secondary-btn">
+            <i class="fa-solid fa-shop"></i> Our Hub
+        </a>
     </div>
 </section>
 
 <section class="section" id="about">
-    <h3>System Overview</h3>
-    <p>Debuggr provides live runtime debugging tools with a clean executor-style interface built for Roblox developers.</p>
+    <h3>Designed for Developers</h3>
+    <p>Debuggr is built for Roblox developers, making debugging simple, readable, and fully configurable.</p>
 </section>
 
 <section class="section" id="features">
@@ -285,41 +393,192 @@ footer{
     <div class="grid">
         <div class="card">
             <i class="fa-solid fa-bolt"></i>
-            <h4>Instant Injection</h4>
-            <p>Initialize and connect within seconds.</p>
+            <h4>Instant Setup</h4>
+            <p>Start debugging within minutes with minimal configuration.</p>
         </div>
         <div class="card">
-            <i class="fa-solid fa-terminal"></i>
-            <h4>Live Console</h4>
-            <p>Real-time logs and debugging feedback.</p>
+            <i class="fa-solid fa-window-maximize"></i>
+            <h4>Clean UI</h4>
+            <p>A readable and modern interface designed for productivity.</p>
         </div>
         <div class="card">
-            <i class="fa-solid fa-shield"></i>
-            <h4>Secure Runtime</h4>
-            <p>Optimized and protected execution environment.</p>
+            <i class="fa-solid fa-code"></i>
+            <h4>Advanced Tools</h4>
+            <p>Powerful runtime debugging features built for serious development.</p>
         </div>
     </div>
 </section>
 
 <section class="section" id="pricing">
-    <h3>Access Tier</h3>
+    <h3>Pricing</h3>
+    <p>Simple access tier with full debugging functionality.</p>
     <div class="grid">
-        <div class="card">
+        <div class="card featured">
             <h4>Plus+</h4>
             <div class="price">R$ 10</div>
             <ul class="pricing-list">
-                <li>Full Executor UI</li>
-                <li>Advanced Debug Tools</li>
+                <li>Beautiful UI</li>
+                <li>Easy Setup</li>
+                <li>Advanced Debugging</li>
                 <li>Priority Support</li>
             </ul>
-            <a href="#" class="btn primary-btn">Purchase Access</a>
+            <a href="https://discord.gg/2SmMSSkmmv" class="btn primary-btn">Buy Now</a>
+        </div>
+    </div>
+</section>
+
+<section class="section" id="preview">
+    <h3>Preview Debuggr in Action</h3>
+    <p>See Debuggr’s interface and tools in action.</p>
+    <div class="preview-container">
+        <div class="preview-arrow arrow-left"><i class="fa-solid fa-chevron-left"></i></div>
+        <div class="preview-arrow arrow-right"><i class="fa-solid fa-chevron-right"></i></div>
+        <div class="preview-slider">
+            <div class="preview-card">
+                <img src="images/ImageNotFound.png" loading="lazy">
+                <h4>Runtime Console</h4>
+                <p>Monitor live logs and output.</p>
+            </div>
+            <div class="preview-card">
+                <img src="images/ImageNotFound.png" loading="lazy">
+                <h4>Variable Inspector</h4>
+                <p>Inspect values during gameplay.</p>
+            </div>
+            <div class="preview-card">
+                <img src="images/ImageNotFound.png" loading="lazy">
+                <h4>Performance Panel</h4>
+                <p>Track runtime performance metrics.</p>
+            </div>
+            <div class="preview-card">
+                <img src="images/ImageNotFound.png" loading="lazy">
+                <h4>Event Tracker</h4>
+                <p>Observe event triggers in real time.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section" id="reviews">
+    <h3>What People Say</h3>
+    <div class="grid">
+        <div class="review-card">
+            <div class="review-header">
+                <img src="images/noFilter-(9).webp" loading="lazy">
+                <div><h4>FJFG11</h4><span>Variable Founder</span></div>
+            </div>
+            <div class="stars">
+                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+            </div>
+            <p>Debuggr streamlined our development workflow significantly.</p>
+        </div>
+
+        <div class="review-card">
+            <div class="review-header">
+                <img src="images/BuildermanPfp.webp" loading="lazy">
+                <div><h4>YourUser</h4><span>Developer</span></div>
+            </div>
+            <div class="stars">
+                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+            </div>
+            <p>This could be your review!</p>
+        </div>
+
+        <div class="review-card">
+            <div class="review-header">
+                <img src="images/KyoPFP.webp" loading="lazy">
+                <div><h4>Kyo</h4><span>Variable Founder</span></div>
+            </div>
+            <div class="stars">
+                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+            </div>
+            <p>Professional, clean, and reliable debugging system.</p>
         </div>
     </div>
 </section>
 
 <footer>
-© 2026 Variable Studios | Debuggr Executor
+© 2026 Variable Studios. All rights reserved.
 </footer>
+
+<script>
+/* THEME TOGGLE */
+const toggle=document.getElementById("toggle");
+const icon=toggle.querySelector("i");
+function setTheme(mode){
+    document.body.classList.toggle("light",mode==="light");
+    icon.className = mode==="light" ? "fa-solid fa-sun" : "fa-solid fa-moon";
+    localStorage.setItem("theme",mode);
+}
+toggle.addEventListener("click",()=>{setTheme(document.body.classList.contains("light")?"dark":"light");});
+const saved=localStorage.getItem("theme");
+if(saved){setTheme(saved);}
+else if(window.matchMedia('(prefers-color-scheme: light)').matches){setTheme("light");}
+
+/* PREVIEW CARDS SIZING */
+function resizePreviewCards() {
+    const slider = document.querySelector(".preview-slider");
+    const cards = slider.querySelectorAll(".preview-card");
+    const containerWidth = slider.offsetWidth;
+    const cardWidth = (containerWidth - 15) / 2;
+    cards.forEach(card => { card.style.flex = `0 0 ${cardWidth}px`; });
+}
+window.addEventListener("resize", resizePreviewCards);
+window.addEventListener("load", resizePreviewCards);
+
+/* SLIDER ARROWS */
+const slider=document.querySelector(".preview-slider");
+document.querySelector(".arrow-left").addEventListener("click",()=>{slider.scrollBy({left:-slider.offsetWidth/2,behavior:'smooth'});});
+document.querySelector(".arrow-right").addEventListener("click",()=>{slider.scrollBy({left:slider.offsetWidth/2,behavior:'smooth'});});
+
+/* PARTICLES */
+const canvas=document.getElementById("particles-bg");
+const ctx=canvas.getContext("2d");
+let particles=[];
+const count=80;
+
+function resize(){canvas.width=innerWidth;canvas.height=innerHeight;}
+resize();addEventListener("resize",resize);
+
+class Particle{
+constructor(){
+this.x=Math.random()*canvas.width;
+this.y=Math.random()*canvas.height;
+this.r=Math.random()*2+1;
+this.dx=(Math.random()-0.5)*0.5;
+this.dy=(Math.random()-0.5)*0.5;
+}
+draw(){
+ctx.beginPath();
+ctx.arc(this.x,this.y,this.r,0,Math.PI*2);
+ctx.fillStyle=document.body.classList.contains("light")?"rgba(0,0,0,0.3)":"rgba(0,179,255,0.6)";
+ctx.fill();
+}
+update(){
+this.x+=this.dx;
+this.y+=this.dy;
+if(this.x<0||this.x>canvas.width)this.dx*=-1;
+if(this.y<0||this.y>canvas.height)this.dy*=-1;
+this.draw();
+}
+}
+
+function init(){particles=[];for(let i=0;i<count;i++)particles.push(new Particle());}
+function animate(){ctx.clearRect(0,0,canvas.width,canvas.height);particles.forEach(p=>p.update());requestAnimationFrame(animate);}
+init();animate();
+
+/* NOTICE */
+const showNotice = true;
+const notice = document.getElementById("notice-banner");
+const closeBtn = document.getElementById("notice-close");
+if(showNotice){notice.style.display="flex";}
+closeBtn.addEventListener("click", ()=>{notice.style.display="none";});
+</script>
 
 </body>
 </html>
