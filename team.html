@@ -132,7 +132,7 @@ nav{
 
 .team-grid{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
   gap:20px;
 }
 
@@ -177,26 +177,83 @@ nav{
   font-size:13px;
 }
 
+.status-wrapper{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  margin-top:8px;
+}
+
+.status-dot{
+  width:10px;
+  height:10px;
+  border-radius:999px;
+  position:relative;
+}
+
+.status-dot::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:999px;
+  animation:pulse 2s infinite;
+  opacity:.6;
+}
+
+.online{
+  background:#43b581;
+}
+
+.online::after{
+  background:#43b581;
+}
+
+.idle{
+  background:#faa61a;
+}
+
+.idle::after{
+  background:#faa61a;
+}
+
+.dnd{
+  background:#ed4245;
+}
+
+.dnd::after{
+  background:#ed4245;
+}
+
+.offline{
+  background:#747f8d;
+}
+
+.offline::after{
+  background:#747f8d;
+}
+
+@keyframes pulse{
+
+  0%{
+    transform:scale(1);
+    opacity:.7;
+  }
+
+  70%{
+    transform:scale(2.2);
+    opacity:0;
+  }
+
+  100%{
+    transform:scale(1);
+    opacity:0;
+  }
+
+}
+
 .member-status{
-  margin-top:6px;
   font-size:12px;
   color:var(--muted2);
-}
-
-.status-online{
-  color:#43b581;
-}
-
-.status-idle{
-  color:#faa61a;
-}
-
-.status-dnd{
-  color:#ed4245;
-}
-
-.status-offline{
-  color:#747f8d;
 }
 
 .team-card p{
@@ -206,9 +263,42 @@ nav{
   margin-bottom:24px;
 }
 
+.spotify-card{
+  margin-top:20px;
+  padding:14px;
+  border-radius:18px;
+  border:1px solid var(--border);
+  background:#111115;
+  display:flex;
+  align-items:center;
+  gap:14px;
+}
+
+.spotify-card i{
+  font-size:26px;
+  color:#1DB954;
+}
+
+.spotify-text{
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+}
+
+.spotify-song{
+  font-size:14px;
+  font-weight:600;
+}
+
+.spotify-artist{
+  font-size:12px;
+  color:var(--muted2);
+}
+
 .member-socials{
   display:flex;
   gap:14px;
+  margin-top:24px;
 }
 
 .member-socials a{
@@ -346,8 +436,19 @@ nav{
             Founder + Lead Developer
           </div>
 
-          <div class="member-status status-offline" id="status">
-            Fetching status...
+          <div class="status-wrapper">
+
+            <div
+              class="status-dot offline"
+              id="status-dot">
+            </div>
+
+            <div
+              class="member-status"
+              id="status">
+              Fetching status...
+            </div>
+
           </div>
 
         </div>
@@ -358,6 +459,29 @@ nav{
         Lead developer behind Luxor systems,
         creating helpful systems every day!
       </p>
+
+      <div
+        class="spotify-card"
+        id="spotify-card"
+        style="display:none;">
+
+        <i class="fa-brands fa-spotify"></i>
+
+        <div class="spotify-text">
+
+          <div
+            class="spotify-song"
+            id="spotify-song">
+          </div>
+
+          <div
+            class="spotify-artist"
+            id="spotify-artist">
+          </div>
+
+        </div>
+
+      </div>
 
       <div class="member-socials">
 
@@ -425,38 +549,67 @@ async function loadLanyard(){
     document.getElementById("avatar").src =
       `https://cdn.discordapp.com/avatars/${USER_ID}/${data.discord_user.avatar}.png`;
 
-    const statusEl = document.getElementById("status");
-
     const status = data.discord_status;
 
-    statusEl.className = "member-status";
+    const statusText =
+      document.getElementById("status");
+
+    const statusDot =
+      document.getElementById("status-dot");
+
+    statusDot.className = "status-dot";
 
     if(status === "online"){
-      statusEl.classList.add("status-online");
-      statusEl.textContent = "● Online";
+
+      statusDot.classList.add("online");
+      statusText.textContent = "Online";
+
     }
 
     else if(status === "idle"){
-      statusEl.classList.add("status-idle");
-      statusEl.textContent = "● Idle";
+
+      statusDot.classList.add("idle");
+      statusText.textContent = "Idle";
+
     }
 
     else if(status === "dnd"){
-      statusEl.classList.add("status-dnd");
-      statusEl.textContent = "● Do Not Disturb";
+
+      statusDot.classList.add("dnd");
+      statusText.textContent = "Do Not Disturb";
+
     }
 
     else{
-      statusEl.classList.add("status-offline");
-      statusEl.textContent = "● Offline";
+
+      statusDot.classList.add("offline");
+      statusText.textContent = "Offline";
+
+    }
+
+    if(data.listening_to_spotify){
+
+      document.getElementById(
+        "spotify-card"
+      ).style.display = "flex";
+
+      document.getElementById(
+        "spotify-song"
+      ).textContent = data.spotify.song;
+
+      document.getElementById(
+        "spotify-artist"
+      ).textContent = data.spotify.artist;
+
     }
 
   }
 
   catch(error){
 
-    document.getElementById("status").textContent =
-      "Failed to load status";
+    document.getElementById(
+      "status"
+    ).textContent = "Failed to load";
 
   }
 
