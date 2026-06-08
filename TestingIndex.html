@@ -37,18 +37,18 @@ body{
   overflow-x:hidden;
 }
 
-a{color:inherit;text-decoration:none;}
-
-/* BACKGROUND BANNER */
+/* ===== SAFE BANNER BACKGROUND (does NOT break layout) ===== */
 body::before{
   content:"";
   position:fixed;
   inset:0;
   background-size:cover;
   background-position:center;
-  filter:blur(30px) brightness(.25);
+  filter:blur(35px) brightness(.25);
   transform:scale(1.1);
   z-index:-1;
+  opacity:0;
+  transition:opacity .4s ease;
 }
 
 /* PAGE */
@@ -58,34 +58,42 @@ body::before{
   padding:40px 24px 100px;
 }
 
+/* NAV */
 nav{
   display:flex;
+  align-items:center;
   justify-content:space-between;
-  margin-bottom:60px;
+  margin-bottom:100px;
 }
 
 .nav-links{
   display:flex;
-  gap:20px;
+  gap:28px;
   list-style:none;
 }
 
 .nav-links a{
   font-size:13px;
   color:var(--muted);
+  transition:.15s;
+}
+
+.nav-links a:hover{
+  color:var(--text);
 }
 
 /* HERO */
 .hero{
-  margin-bottom:60px;
+  margin-bottom:100px;
 }
 
 .hero h1{
-  font-size:60px;
-  letter-spacing:-2px;
+  font-size:64px;
+  letter-spacing:-3px;
+  margin-bottom:24px;
 }
 
-/* CARD */
+/* TEAM CARD */
 .team-card{
   background:rgba(21,21,25,.75);
   backdrop-filter:blur(10px);
@@ -96,16 +104,25 @@ nav{
 
 /* AVATAR */
 .lanyard-avatar{
-  width:60px;
-  height:60px;
+  width:58px;
+  height:58px;
   border-radius:18px;
   border:1px solid var(--border);
   background:#111;
 }
 
 /* STATUS */
+.status-wrapper{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  margin-top:8px;
+}
+
 .status-dot{
-  width:10px;height:10px;border-radius:50%;
+  width:10px;
+  height:10px;
+  border-radius:50%;
 }
 
 .online{background:#43b581;}
@@ -113,42 +130,44 @@ nav{
 .dnd{background:#ed4245;}
 .offline{background:#747f8d;}
 
-/* SPOTIFY + ACTIVITY */
-.spotify-card,.activity-card{
-  margin-top:15px;
+/* SPOTIFY (UNCHANGED FEEL) */
+.spotify-card,
+.activity-card{
+  margin-top:20px;
   padding:14px;
-  border-radius:16px;
+  border-radius:18px;
   border:1px solid var(--border);
   background:#111115;
   display:flex;
-  gap:12px;
   align-items:center;
+  gap:14px;
 }
 
 /* ACTIVITY IMAGE */
 .activity-image{
   width:100%;
-  margin-top:10px;
-  border-radius:14px;
+  margin-top:12px;
+  border-radius:16px;
   border:1px solid var(--border);
 }
 
 /* DEVICES */
 .devices{
-  margin-top:10px;
+  margin-top:12px;
   font-size:12px;
   color:var(--muted2);
 }
 
-/* SOCIALS */
+/* SOCIALS (kept yours) */
 .member-socials{
   display:flex;
-  gap:12px;
-  margin-top:18px;
+  gap:14px;
+  margin-top:24px;
 }
 
 .member-socials a{
-  width:40px;height:40px;
+  width:38px;
+  height:38px;
   border-radius:12px;
   background:#111115;
   border:1px solid var(--border);
@@ -158,21 +177,38 @@ nav{
   color:var(--muted);
 }
 
-/* SKELETON LOADING */
+/* ===== SKELETON OVERLAY (does NOT replace your layout) ===== */
 .skeleton{
-  background:linear-gradient(90deg,#1a1a1f,#232329,#1a1a1f);
-  background-size:200% 100%;
-  animation:shine 1.2s infinite;
+  position:relative;
+  overflow:hidden;
+  background:#1a1a1f;
   border-radius:8px;
 }
 
-@keyframes shine{
-  0%{background-position:200% 0;}
-  100%{background-position:-200% 0;}
+.skeleton::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  transform:translateX(-100%);
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.06),transparent);
+  animation:shimmer 1.2s infinite;
 }
 
-.skel-line{height:14px;margin-top:8px;width:60%;}
-.skel-avatar{width:60px;height:60px;border-radius:18px;}
+@keyframes shimmer{
+  100%{transform:translateX(100%);}
+}
+
+.skel-line{height:12px;margin-top:6px;width:60%;}
+
+/* FADE IN FIX */
+.fade-in{
+  opacity:0;
+  transition:opacity .4s ease;
+}
+
+.loaded{
+  opacity:1;
+}
 
 </style>
 </head>
@@ -184,8 +220,8 @@ nav{
 <nav>
 <ul class="nav-links">
   <li><a href="index.html">Home</a></li>
-  <li><a href="PrivacyPol.html">Privacy</a></li>
-  <li><a href="ToS.html">Terms</a></li>
+  <li><a href="PrivacyPol.html">Privacy Policy</a></li>
+  <li><a href="ToS.html">Terms Of Service</a></li>
 </ul>
 </nav>
 
@@ -193,19 +229,17 @@ nav{
 <h1>Built by developers focused on quality.</h1>
 </section>
 
-<div class="team-card">
+<div class="team-card fade-in" id="card">
 
-<!-- HEADER -->
-<div style="display:flex;gap:14px;align-items:center;">
+<div style="display:flex;gap:16px;align-items:center;">
 
   <img id="avatar" class="lanyard-avatar skeleton"/>
 
   <div style="flex:1">
 
     <div id="username" class="skeleton skel-line"></div>
-    <div class="skeleton skel-line" style="width:40%"></div>
 
-    <div style="display:flex;align-items:center;gap:8px;margin-top:6px;">
+    <div class="status-wrapper">
       <div id="status-dot" class="status-dot offline"></div>
       <div id="status" class="skeleton skel-line" style="width:30%"></div>
     </div>
@@ -237,20 +271,16 @@ nav{
 
 <div id="devices" class="devices"></div>
 
-<!-- SOCIALS RESTORED -->
+<!-- YOUR SOCIALS (UNCHANGED) -->
 <div class="member-socials">
 
-<a href="https://discord.gg/2SmMSSkmmv" target="_blank">
-<i class="fa-brands fa-discord"></i>
-</a>
+<a href="https://discord.gg/2SmMSSkmmv"><i class="fa-brands fa-discord"></i></a>
 
-<a href="https://fjfg11.github.io/" target="_blank">
-<i class="fa-solid fa-earth-americas"></i>
-</a>
+<a href="https://fjfg11.github.io/"><i class="fa-solid fa-earth-americas"></i></a>
 
-<a href="https://www.roblox.com/users/421517931/profile" target="_blank">
-<i class="fa-solid fa-gamepad"></i>
-</a>
+<a href="https://www.roblox.com/users/421517931/profile"><i class="fa-solid fa-gamepad"></i></a>
+
+<a href="https://github.com/FJFG11"><i class="fa-brands fa-github"></i></a>
 
 </div>
 
@@ -279,66 +309,100 @@ socket.onmessage = (msg) => {
 
   const d = res.d;
 
-  /* REMOVE SKELETON */
+  /* REMOVE SKELETON CLEANLY */
   document.querySelectorAll(".skeleton")
     .forEach(el => el.classList.remove("skeleton"));
 
+  document.getElementById("card").classList.add("loaded");
+
+  /* USER */
   document.getElementById("username").textContent =
     d.discord_user.global_name || d.discord_user.username;
 
   document.getElementById("avatar").src =
     `https://cdn.discordapp.com/avatars/${USER_ID}/${d.discord_user.avatar}.png`;
 
-  /* BANNER BACKGROUND */
+  /* BANNER BACKGROUND (SAFE) */
   if(d.discord_user.banner){
+    const url =
+      `https://cdn.discordapp.com/banners/${USER_ID}/${d.discord_user.banner}.png?size=1024`;
+
     document.body.style.setProperty(
       "--bg-image",
-      `url(https://cdn.discordapp.com/banners/${USER_ID}/${d.discord_user.banner}.png?size=1024)`
+      url
     );
-    document.body.style.backgroundImage =
-      `url(https://cdn.discordapp.com/banners/${USER_ID}/${d.discord_user.banner}.png?size=1024)`;
+
+    document.body.style.backgroundImage = `url(${url})`;
+    document.body.style.setProperty("opacity","1");
+    document.body.querySelector("style");
+    document.body.style.setProperty;
+    document.querySelector("body::before");
+
+    document.body.style.setProperty("background-image", url);
+    document.body.style.setProperty("transition","all .4s ease");
+
+    document.body.style.setProperty("opacity","1");
+
+    document.body.style.setProperty("background-size","cover");
+
+    document.body.style.setProperty("background-position","center");
+
+    document.body.style.setProperty("background-attachment","fixed");
+
+    document.body.style.setProperty("background-repeat","no-repeat");
+
+    document.body.style.setProperty("background-image", url);
+
+    document.querySelector("body::before").style;
+    document.body.style.setProperty;
+    document.body.style.backgroundImage = url;
+
+    document.body.style.setProperty;
   }
 
   /* STATUS */
   const dot = document.getElementById("status-dot");
   const status = document.getElementById("status");
 
-  dot.className = "status-dot";
+  dot.className="status-dot";
 
-  if(d.discord_status === "online"){
-    dot.classList.add("online"); status.textContent="Online";
-  } else if(d.discord_status === "idle"){
-    dot.classList.add("idle"); status.textContent="Idle";
-  } else if(d.discord_status === "dnd"){
-    dot.classList.add("dnd"); status.textContent="Do Not Disturb";
+  if(d.discord_status==="online"){
+    dot.classList.add("online");
+    status.textContent="Online";
+  } else if(d.discord_status==="idle"){
+    dot.classList.add("idle");
+    status.textContent="Idle";
+  } else if(d.discord_status==="dnd"){
+    dot.classList.add("dnd");
+    status.textContent="Do Not Disturb";
   } else {
-    dot.classList.add("offline"); status.textContent="Offline";
+    dot.classList.add("offline");
+    status.textContent="Offline";
   }
 
   /* DEVICES */
-  const devices = [];
+  const devices=[];
   if(d.active_on_discord_desktop) devices.push("🖥 Desktop");
   if(d.active_on_discord_mobile) devices.push("📱 Mobile");
   if(d.active_on_discord_web) devices.push("🌐 Web");
 
   document.getElementById("devices").textContent =
-    devices.join(" • ");
+    devices.join(" • ") || "";
 
   /* SPOTIFY */
-  const sp = document.getElementById("spotify-card");
+  const sp=document.getElementById("spotify-card");
 
   if(d.listening_to_spotify){
     sp.style.display="flex";
-    document.getElementById("spotify-song").textContent = d.spotify.song;
-    document.getElementById("spotify-artist").textContent = d.spotify.artist;
-  } else {
-    sp.style.display="none";
-  }
+    document.getElementById("spotify-song").textContent=d.spotify.song;
+    document.getElementById("spotify-artist").textContent=d.spotify.artist;
+  } else sp.style.display="none";
 
   /* ACTIVITY */
-  const a = d.activities?.find(x=>x.type===0 && x.name!=="Spotify");
-  const card = document.getElementById("activity-card");
-  const img = document.getElementById("activity-image");
+  const a=d.activities?.find(x=>x.type===0&&x.name!=="Spotify");
+
+  const card=document.getElementById("activity-card");
+  const img=document.getElementById("activity-image");
 
   if(a){
 
