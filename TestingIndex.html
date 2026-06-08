@@ -144,7 +144,6 @@ nav{
   padding:26px;
   transition:.2s;
 
-  /* added for banner support */
   background-size:cover;
   background-position:center;
   position:relative;
@@ -353,9 +352,7 @@ nav{
     The Developers
   </div>
 
-  <h1>
-    Built by developers focused on quality.
-  </h1>
+  <h1>Built by developers focused on quality.</h1>
 
   <p>
     Luxor is maintained by a small team of 1 person focused on
@@ -367,7 +364,6 @@ nav{
 <section class="section">
 
   <div class="section-sub">Members</div>
-
   <div class="section-title">Core Team</div>
 
   <div class="team-grid">
@@ -376,22 +372,15 @@ nav{
 
       <div class="team-top">
 
-        <img
-          id="avatar"
-          class="lanyard-avatar"
+        <img id="avatar" class="lanyard-avatar"
           src="https://cdn.discordapp.com/embed/avatars/0.png"
-          alt="Avatar"
-        />
+          alt="Avatar"/>
 
         <div>
 
-          <div class="member-name" id="username">
-            Loading...
-          </div>
+          <div class="member-name" id="username">Loading...</div>
 
-          <div class="member-role">
-            Founder + Lead Developer
-          </div>
+          <div class="member-role">Founder + Lead Developer</div>
 
           <div class="status-wrapper">
             <div class="status-dot offline" id="status-dot"></div>
@@ -428,14 +417,12 @@ nav{
 </section>
 
 <footer class="footer">
-
   <div>© 2026 Luxor. All rights reserved.</div>
 
   <div class="socials">
     <a href="https://github.com/FJFG11"><i class="fa-brands fa-github"></i></a>
     <a href="https://discord.gg/2SmMSSkmmv"><i class="fa-brands fa-discord"></i></a>
   </div>
-
 </footer>
 
 </div>
@@ -454,19 +441,19 @@ async function loadLanyard(){
 
     const json = await response.json();
     const data = json.data;
+    const user = data.discord_user;
 
-    document.getElementById("username").textContent =
-      data.discord_user.username;
+    document.getElementById("username").textContent = user.username;
 
     document.getElementById("avatar").src =
-      `https://cdn.discordapp.com/avatars/${USER_ID}/${data.discord_user.avatar}.png`;
+      `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png`;
 
-    /* banner support */
-    const banner = data.discord_user.banner;
+    /* FIXED BANNER LOGIC */
+    const banner = user.banner;
 
-    if (banner) {
+    if (banner){
       const format = banner.startsWith("a_") ? "gif" : "png";
-      const url = `https://cdn.discordapp.com/banners/${USER_ID}/${banner}.${format}?size=1024`;
+      const url = `https://cdn.discordapp.com/banners/${user.id}/${banner}.${format}?size=1024`;
       document.getElementById("team-card").style.backgroundImage = `url('${url}')`;
     }
 
