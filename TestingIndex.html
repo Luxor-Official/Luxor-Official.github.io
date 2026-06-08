@@ -431,6 +431,9 @@ nav{
 
 const USER_ID = "1193285201783181361";
 
+/* YOUR REPO PATH */
+const LOCAL_BANNER = "images/Banner.webp";
+
 async function loadLanyard(){
 
   try{
@@ -441,21 +444,15 @@ async function loadLanyard(){
 
     const json = await response.json();
     const data = json.data;
-    const user = data.discord_user;
 
-    document.getElementById("username").textContent = user.username;
+    document.getElementById("username").textContent =
+      data.discord_user.username;
 
     document.getElementById("avatar").src =
-      `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png`;
+      `https://cdn.discordapp.com/avatars/${USER_ID}/${data.discord_user.avatar}.png`;
 
-    /* FIXED BANNER LOGIC */
-    const banner = user.banner;
-
-    if (banner){
-      const format = banner.startsWith("a_") ? "gif" : "png";
-      const url = `https://cdn.discordapp.com/banners/${user.id}/${banner}.${format}?size=1024`;
-      document.getElementById("team-card").style.backgroundImage = `url('${url}')`;
-    }
+    document.getElementById("team-card").style.backgroundImage =
+      `url('${LOCAL_BANNER}')`;
 
     const status = data.discord_status;
 
@@ -489,6 +486,8 @@ async function loadLanyard(){
 
   } catch(error){
     document.getElementById("status").textContent = "Failed to load";
+    document.getElementById("team-card").style.backgroundImage =
+      `url('${LOCAL_BANNER}')`;
   }
 
 }
