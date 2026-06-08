@@ -14,7 +14,7 @@ rel="stylesheet"/>
 
 <style>
 
-*,*::before,*::after{
+*{
   margin:0;
   padding:0;
   box-sizing:border-box;
@@ -25,103 +25,105 @@ rel="stylesheet"/>
   --text:#ececf1;
   --muted:#8a8a95;
   --muted2:#5e5e68;
-  --card:#151519;
   --border:#232329;
-  --hover:#1b1b20;
 }
 
 body{
+  font-family:'Geist',sans-serif;
   background:var(--bg);
   color:var(--text);
-  font-family:'Geist',sans-serif;
   overflow-x:hidden;
 }
 
-/* ===== SAFE BANNER BACKGROUND (does NOT break layout) ===== */
+/* ===== CLEAN BANNER BACKGROUND ===== */
 body::before{
   content:"";
   position:fixed;
   inset:0;
   background-size:cover;
   background-position:center;
-  filter:blur(35px) brightness(.25);
+  filter:blur(40px) brightness(.25);
   transform:scale(1.1);
   z-index:-1;
-  opacity:0;
-  transition:opacity .4s ease;
 }
 
 /* PAGE */
 .page{
   max-width:1100px;
   margin:auto;
-  padding:40px 24px 100px;
+  padding:40px 24px 80px;
 }
 
 /* NAV */
 nav{
   display:flex;
-  align-items:center;
   justify-content:space-between;
-  margin-bottom:100px;
+  margin-bottom:60px;
 }
 
 .nav-links{
   display:flex;
-  gap:28px;
+  gap:24px;
   list-style:none;
 }
 
 .nav-links a{
   font-size:13px;
   color:var(--muted);
-  transition:.15s;
-}
-
-.nav-links a:hover{
-  color:var(--text);
+  text-decoration:none;
 }
 
 /* HERO */
 .hero{
-  margin-bottom:100px;
+  margin-bottom:40px;
 }
 
 .hero h1{
-  font-size:64px;
-  letter-spacing:-3px;
-  margin-bottom:24px;
+  font-size:54px;
+  letter-spacing:-2px;
 }
 
-/* TEAM CARD */
+/* CARD */
 .team-card{
-  background:rgba(21,21,25,.75);
-  backdrop-filter:blur(10px);
+  background:rgba(21,21,25,.65);
   border:1px solid var(--border);
   border-radius:24px;
-  padding:26px;
+  padding:24px;
+  backdrop-filter:blur(14px);
 }
 
-/* AVATAR */
-.lanyard-avatar{
-  width:58px;
-  height:58px;
-  border-radius:18px;
+/* HEADER */
+.team-top{
+  display:flex;
+  align-items:center;
+  gap:14px;
+}
+
+.avatar{
+  width:60px;
+  height:60px;
+  border-radius:16px;
   border:1px solid var(--border);
-  background:#111;
+  object-fit:cover;
+}
+
+/* NAME */
+.member-name{
+  font-size:18px;
+  font-weight:600;
 }
 
 /* STATUS */
-.status-wrapper{
+.status-row{
   display:flex;
   align-items:center;
   gap:8px;
-  margin-top:8px;
+  margin-top:6px;
 }
 
-.status-dot{
-  width:10px;
-  height:10px;
+.dot{
+  width:9px;
+  height:9px;
   border-radius:50%;
 }
 
@@ -130,84 +132,70 @@ nav{
 .dnd{background:#ed4245;}
 .offline{background:#747f8d;}
 
-/* SPOTIFY (UNCHANGED FEEL) */
-.spotify-card,
-.activity-card{
-  margin-top:20px;
-  padding:14px;
-  border-radius:18px;
+/* CARDS */
+.card{
+  margin-top:14px;
+  padding:12px 14px;
+  border-radius:14px;
   border:1px solid var(--border);
   background:#111115;
   display:flex;
+  gap:12px;
   align-items:center;
-  gap:14px;
 }
 
 /* ACTIVITY IMAGE */
 .activity-image{
   width:100%;
-  margin-top:12px;
-  border-radius:16px;
+  margin-top:10px;
+  border-radius:14px;
   border:1px solid var(--border);
 }
 
 /* DEVICES */
 .devices{
-  margin-top:12px;
+  margin-top:10px;
   font-size:12px;
   color:var(--muted2);
 }
 
-/* SOCIALS (kept yours) */
-.member-socials{
+/* SOCIALS */
+.socials{
   display:flex;
-  gap:14px;
-  margin-top:24px;
+  gap:10px;
+  margin-top:16px;
 }
 
-.member-socials a{
-  width:38px;
-  height:38px;
-  border-radius:12px;
-  background:#111115;
-  border:1px solid var(--border);
+.socials a{
+  width:36px;
+  height:36px;
   display:flex;
   align-items:center;
   justify-content:center;
+  border-radius:10px;
+  background:#111115;
+  border:1px solid var(--border);
   color:var(--muted);
+  text-decoration:none;
 }
 
-/* ===== SKELETON OVERLAY (does NOT replace your layout) ===== */
+/* LOADING */
 .skeleton{
-  position:relative;
-  overflow:hidden;
-  background:#1a1a1f;
-  border-radius:8px;
-}
-
-.skeleton::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  transform:translateX(-100%);
-  background:linear-gradient(90deg,transparent,rgba(255,255,255,.06),transparent);
+  background:linear-gradient(90deg,#1a1a1f,#232329,#1a1a1f);
+  background-size:200% 100%;
   animation:shimmer 1.2s infinite;
+  border-radius:6px;
 }
 
 @keyframes shimmer{
-  100%{transform:translateX(100%);}
+  0%{background-position:200% 0;}
+  100%{background-position:-200% 0;}
 }
 
-.skel-line{height:12px;margin-top:6px;width:60%;}
-
-/* FADE IN FIX */
-.fade-in{
-  opacity:0;
-  transition:opacity .4s ease;
-}
-
-.loaded{
-  opacity:1;
+.line{
+  height:12px;
+  width:60%;
+  margin-top:6px;
 }
 
 </style>
@@ -220,8 +208,8 @@ nav{
 <nav>
 <ul class="nav-links">
   <li><a href="index.html">Home</a></li>
-  <li><a href="PrivacyPol.html">Privacy Policy</a></li>
-  <li><a href="ToS.html">Terms Of Service</a></li>
+  <li><a href="PrivacyPol.html">Privacy</a></li>
+  <li><a href="ToS.html">Terms</a></li>
 </ul>
 </nav>
 
@@ -229,19 +217,20 @@ nav{
 <h1>Built by developers focused on quality.</h1>
 </section>
 
-<div class="team-card fade-in" id="card">
+<div class="team-card">
 
-<div style="display:flex;gap:16px;align-items:center;">
+<!-- HEADER -->
+<div class="team-top">
 
-  <img id="avatar" class="lanyard-avatar skeleton"/>
+  <img id="avatar" class="avatar skeleton"/>
 
-  <div style="flex:1">
+  <div>
 
-    <div id="username" class="skeleton skel-line"></div>
+    <div id="username" class="skeleton line"></div>
 
-    <div class="status-wrapper">
-      <div id="status-dot" class="status-dot offline"></div>
-      <div id="status" class="skeleton skel-line" style="width:30%"></div>
+    <div class="status-row">
+      <div id="status-dot" class="dot offline"></div>
+      <div id="status" class="skeleton line" style="width:40%"></div>
     </div>
 
   </div>
@@ -249,8 +238,8 @@ nav{
 </div>
 
 <!-- SPOTIFY -->
-<div id="spotify-card" class="spotify-card" style="display:none;">
-<i class="fa-brands fa-spotify"></i>
+<div id="spotify-card" class="card" style="display:none;">
+<i class="fa-brands fa-spotify" style="color:#1DB954"></i>
 <div>
   <div id="spotify-song"></div>
   <div id="spotify-artist"></div>
@@ -258,7 +247,7 @@ nav{
 </div>
 
 <!-- ACTIVITY -->
-<div id="activity-card" class="activity-card" style="display:none;">
+<div id="activity-card" class="card" style="display:none;">
 <i class="fa-solid fa-gamepad"></i>
 <div>
   <div id="activity-name"></div>
@@ -271,8 +260,8 @@ nav{
 
 <div id="devices" class="devices"></div>
 
-<!-- YOUR SOCIALS (UNCHANGED) -->
-<div class="member-socials">
+<!-- SOCIALS -->
+<div class="socials">
 
 <a href="https://discord.gg/2SmMSSkmmv"><i class="fa-brands fa-discord"></i></a>
 
@@ -309,62 +298,30 @@ socket.onmessage = (msg) => {
 
   const d = res.d;
 
-  /* REMOVE SKELETON CLEANLY */
+  /* remove skeleton */
   document.querySelectorAll(".skeleton")
-    .forEach(el => el.classList.remove("skeleton"));
+    .forEach(el => el.remove());
 
-  document.getElementById("card").classList.add("loaded");
-
-  /* USER */
+  /* user */
   document.getElementById("username").textContent =
     d.discord_user.global_name || d.discord_user.username;
 
   document.getElementById("avatar").src =
     `https://cdn.discordapp.com/avatars/${USER_ID}/${d.discord_user.avatar}.png`;
 
-  /* BANNER BACKGROUND (SAFE) */
+  /* banner background */
   if(d.discord_user.banner){
     const url =
       `https://cdn.discordapp.com/banners/${USER_ID}/${d.discord_user.banner}.png?size=1024`;
 
-    document.body.style.setProperty(
-      "--bg-image",
-      url
-    );
-
     document.body.style.backgroundImage = `url(${url})`;
-    document.body.style.setProperty("opacity","1");
-    document.body.querySelector("style");
-    document.body.style.setProperty;
-    document.querySelector("body::before");
-
-    document.body.style.setProperty("background-image", url);
-    document.body.style.setProperty("transition","all .4s ease");
-
-    document.body.style.setProperty("opacity","1");
-
-    document.body.style.setProperty("background-size","cover");
-
-    document.body.style.setProperty("background-position","center");
-
-    document.body.style.setProperty("background-attachment","fixed");
-
-    document.body.style.setProperty("background-repeat","no-repeat");
-
-    document.body.style.setProperty("background-image", url);
-
-    document.querySelector("body::before").style;
-    document.body.style.setProperty;
-    document.body.style.backgroundImage = url;
-
-    document.body.style.setProperty;
   }
 
-  /* STATUS */
-  const dot = document.getElementById("status-dot");
-  const status = document.getElementById("status");
+  /* status */
+  const dot=document.getElementById("status-dot");
+  const status=document.getElementById("status");
 
-  dot.className="status-dot";
+  dot.className="dot";
 
   if(d.discord_status==="online"){
     dot.classList.add("online");
@@ -380,25 +337,27 @@ socket.onmessage = (msg) => {
     status.textContent="Offline";
   }
 
-  /* DEVICES */
-  const devices=[];
-  if(d.active_on_discord_desktop) devices.push("🖥 Desktop");
-  if(d.active_on_discord_mobile) devices.push("📱 Mobile");
-  if(d.active_on_discord_web) devices.push("🌐 Web");
+  /* devices */
+  const dev=[];
+  if(d.active_on_discord_desktop) dev.push("Desktop");
+  if(d.active_on_discord_mobile) dev.push("Mobile");
+  if(d.active_on_discord_web) dev.push("Web");
 
   document.getElementById("devices").textContent =
-    devices.join(" • ") || "";
+    dev.join(" • ");
 
-  /* SPOTIFY */
+  /* spotify */
   const sp=document.getElementById("spotify-card");
 
   if(d.listening_to_spotify){
     sp.style.display="flex";
     document.getElementById("spotify-song").textContent=d.spotify.song;
     document.getElementById("spotify-artist").textContent=d.spotify.artist;
-  } else sp.style.display="none";
+  } else {
+    sp.style.display="none";
+  }
 
-  /* ACTIVITY */
+  /* activity */
   const a=d.activities?.find(x=>x.type===0&&x.name!=="Spotify");
 
   const card=document.getElementById("activity-card");
@@ -425,7 +384,8 @@ socket.onmessage = (msg) => {
 
     if(a.assets?.large_image){
       img.style.display="block";
-      img.src=`https://cdn.discordapp.com/app-assets/${a.application_id}/${a.assets.large_image}.png`;
+      img.src=
+        `https://cdn.discordapp.com/app-assets/${a.application_id}/${a.assets.large_image}.png`;
     }
 
   } else {
