@@ -1,20 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-  <title>Luxor • Team</title>
+<title>Luxor • Team</title>
 
-  <link rel="stylesheet"
-  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 
-  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&display=swap"
-  rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&display=swap"
+rel="stylesheet"/>
 
 <style>
 
-*, *::before, *::after{
+*,*::before,*::after{
   margin:0;
   padding:0;
   box-sizing:border-box;
@@ -37,21 +37,21 @@ body{
   overflow-x:hidden;
 }
 
+a{color:inherit;text-decoration:none;}
+
+/* BACKGROUND BANNER */
 body::before{
   content:"";
   position:fixed;
   inset:0;
-  background:
-    radial-gradient(circle at top left,#2a2a35 0%,transparent 40%);
-  opacity:.2;
-  pointer-events:none;
+  background-size:cover;
+  background-position:center;
+  filter:blur(30px) brightness(.25);
+  transform:scale(1.1);
+  z-index:-1;
 }
 
-a{
-  color:inherit;
-  text-decoration:none;
-}
-
+/* PAGE */
 .page{
   max-width:1100px;
   margin:auto;
@@ -60,144 +60,52 @@ a{
 
 nav{
   display:flex;
-  align-items:center;
   justify-content:space-between;
-  margin-bottom:100px;
+  margin-bottom:60px;
 }
 
 .nav-links{
   display:flex;
-  gap:28px;
+  gap:20px;
   list-style:none;
 }
 
 .nav-links a{
   font-size:13px;
   color:var(--muted);
-  transition:.15s;
 }
 
-.nav-links a:hover{
-  color:var(--text);
-}
-
+/* HERO */
 .hero{
-  margin-bottom:100px;
-}
-
-.hero-badge{
-  display:inline-flex;
-  align-items:center;
-  gap:8px;
-  padding:7px 12px;
-  border-radius:999px;
-  background:var(--card);
-  border:1px solid var(--border);
-  color:var(--muted);
-  font-size:12px;
-  margin-bottom:22px;
+  margin-bottom:60px;
 }
 
 .hero h1{
-  font-size:64px;
-  line-height:1;
-  letter-spacing:-3px;
-  margin-bottom:24px;
+  font-size:60px;
+  letter-spacing:-2px;
 }
 
-.hero p{
-  color:var(--muted);
-  font-size:15px;
-  line-height:1.9;
-  max-width:700px;
-}
-
-.section{
-  margin-bottom:100px;
-}
-
-.section-sub{
-  font-size:12px;
-  color:var(--muted2);
-  text-transform:uppercase;
-  letter-spacing:.14em;
-  margin-bottom:12px;
-}
-
-.section-title{
-  font-size:38px;
-  letter-spacing:-1px;
-  margin-bottom:40px;
-}
-
-.team-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
-  gap:20px;
-}
-
+/* CARD */
 .team-card{
   background:rgba(21,21,25,.75);
   backdrop-filter:blur(10px);
   border:1px solid var(--border);
   border-radius:24px;
   padding:26px;
-  transition:.2s;
 }
 
-.team-card:hover{
-  transform:translateY(-4px);
-  background:var(--hover);
-}
-
-.team-top{
-  display:flex;
-  align-items:center;
-  gap:16px;
-  margin-bottom:22px;
-}
-
+/* AVATAR */
 .lanyard-avatar{
-  width:58px;
-  height:58px;
+  width:60px;
+  height:60px;
   border-radius:18px;
   border:1px solid var(--border);
-  object-fit:cover;
-  background:#111115;
+  background:#111;
 }
 
-.member-name{
-  font-size:18px;
-  font-weight:600;
-  margin-bottom:4px;
-}
-
-.member-role{
-  color:var(--muted2);
-  font-size:13px;
-}
-
-.status-wrapper{
-  display:flex;
-  align-items:center;
-  gap:8px;
-  margin-top:8px;
-}
-
+/* STATUS */
 .status-dot{
-  width:10px;
-  height:10px;
-  border-radius:999px;
-  position:relative;
-}
-
-.status-dot::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  border-radius:999px;
-  animation:pulse 2s infinite;
-  opacity:.6;
+  width:10px;height:10px;border-radius:50%;
 }
 
 .online{background:#43b581;}
@@ -205,81 +113,66 @@ nav{
 .dnd{background:#ed4245;}
 .offline{background:#747f8d;}
 
-@keyframes pulse{
-  0%{transform:scale(1);opacity:.7;}
-  70%{transform:scale(2.2);opacity:0;}
-  100%{transform:scale(1);opacity:0;}
-}
-
-.member-status{
-  font-size:12px;
-  color:var(--muted2);
-}
-
-.spotify-card,
-.activity-card{
-  margin-top:20px;
+/* SPOTIFY + ACTIVITY */
+.spotify-card,.activity-card{
+  margin-top:15px;
   padding:14px;
-  border-radius:18px;
+  border-radius:16px;
   border:1px solid var(--border);
   background:#111115;
   display:flex;
+  gap:12px;
   align-items:center;
-  gap:14px;
 }
 
-.spotify-card i,
-.activity-card i{
-  font-size:26px;
-  color:#1DB954;
-}
-
-.spotify-text{
-  display:flex;
-  flex-direction:column;
-  gap:4px;
-}
-
-.spotify-song{
-  font-size:14px;
-  font-weight:600;
-}
-
-.spotify-artist{
-  font-size:12px;
-  color:var(--muted2);
-}
-
+/* ACTIVITY IMAGE */
 .activity-image{
   width:100%;
-  margin-top:14px;
-  border-radius:16px;
+  margin-top:10px;
+  border-radius:14px;
   border:1px solid var(--border);
 }
 
+/* DEVICES */
 .devices{
-  margin-top:12px;
+  margin-top:10px;
   font-size:12px;
   color:var(--muted2);
 }
 
-.footer{
-  border-top:1px solid var(--border);
-  padding-top:28px;
-  color:var(--muted2);
-  font-size:13px;
+/* SOCIALS */
+.member-socials{
   display:flex;
-  justify-content:space-between;
-  gap:20px;
-  flex-wrap:wrap;
+  gap:12px;
+  margin-top:18px;
 }
 
-.socials{
+.member-socials a{
+  width:40px;height:40px;
+  border-radius:12px;
+  background:#111115;
+  border:1px solid var(--border);
   display:flex;
-  gap:14px;
+  align-items:center;
+  justify-content:center;
+  color:var(--muted);
 }
 
-.socials a:hover{color:var(--text);}
+/* SKELETON LOADING */
+.skeleton{
+  background:linear-gradient(90deg,#1a1a1f,#232329,#1a1a1f);
+  background-size:200% 100%;
+  animation:shine 1.2s infinite;
+  border-radius:8px;
+}
+
+@keyframes shine{
+  0%{background-position:200% 0;}
+  100%{background-position:-200% 0;}
+}
+
+.skel-line{height:14px;margin-top:8px;width:60%;}
+.skel-avatar{width:60px;height:60px;border-radius:18px;}
 
 </style>
 </head>
@@ -289,105 +182,106 @@ nav{
 <div class="page">
 
 <nav>
-  <ul class="nav-links">
-    <li><a href="index.html">Home</a></li>
-    <li><a href="PrivacyPol.html">Privacy Policy</a></li>
-    <li><a href="ToS.html">Terms Of Service</a></li>
-  </ul>
+<ul class="nav-links">
+  <li><a href="index.html">Home</a></li>
+  <li><a href="PrivacyPol.html">Privacy</a></li>
+  <li><a href="ToS.html">Terms</a></li>
+</ul>
 </nav>
 
 <section class="hero">
-
-  <div class="hero-badge">
-    <i class="fa-solid fa-users"></i>
-    The Developers
-  </div>
-
-  <h1>Built by developers focused on quality.</h1>
-
-  <p>
-    Luxor is maintained by a small team of 1 person focused on creating modern e-commerce assets for the market!
-  </p>
-
+<h1>Built by developers focused on quality.</h1>
 </section>
 
-<section class="section">
+<div class="team-card">
 
-  <div class="team-grid">
+<!-- HEADER -->
+<div style="display:flex;gap:14px;align-items:center;">
 
-    <div class="team-card">
+  <img id="avatar" class="lanyard-avatar skeleton"/>
 
-      <div class="team-top">
+  <div style="flex:1">
 
-        <img id="avatar" class="lanyard-avatar"
-        src="https://cdn.discordapp.com/embed/avatars/0.png"/>
+    <div id="username" class="skeleton skel-line"></div>
+    <div class="skeleton skel-line" style="width:40%"></div>
 
-        <div>
-
-          <div class="member-name" id="username">Loading...</div>
-
-          <div class="member-role">Founder + Lead Developer</div>
-
-          <div class="status-wrapper">
-            <div class="status-dot offline" id="status-dot"></div>
-            <div class="member-status" id="status">Loading...</div>
-          </div>
-
-        </div>
-
-      </div>
-
-      <div class="spotify-card" id="spotify-card" style="display:none;">
-        <i class="fa-brands fa-spotify"></i>
-        <div class="spotify-text">
-          <div class="spotify-song" id="spotify-song"></div>
-          <div class="spotify-artist" id="spotify-artist"></div>
-        </div>
-      </div>
-
-      <div class="activity-card" id="activity-card" style="display:none;">
-        <i class="fa-solid fa-gamepad"></i>
-        <div class="spotify-text">
-          <div class="spotify-song" id="activity-name"></div>
-          <div class="spotify-artist" id="activity-type"></div>
-          <div class="spotify-artist" id="activity-time"></div>
-        </div>
-      </div>
-
-      <img id="activity-image" class="activity-image" style="display:none"/>
-
-      <div class="devices" id="devices"></div>
-
+    <div style="display:flex;align-items:center;gap:8px;margin-top:6px;">
+      <div id="status-dot" class="status-dot offline"></div>
+      <div id="status" class="skeleton skel-line" style="width:30%"></div>
     </div>
 
   </div>
 
-</section>
+</div>
+
+<!-- SPOTIFY -->
+<div id="spotify-card" class="spotify-card" style="display:none;">
+<i class="fa-brands fa-spotify"></i>
+<div>
+  <div id="spotify-song"></div>
+  <div id="spotify-artist"></div>
+</div>
+</div>
+
+<!-- ACTIVITY -->
+<div id="activity-card" class="activity-card" style="display:none;">
+<i class="fa-solid fa-gamepad"></i>
+<div>
+  <div id="activity-name"></div>
+  <div id="activity-type"></div>
+  <div id="activity-time"></div>
+</div>
+</div>
+
+<img id="activity-image" class="activity-image" style="display:none"/>
+
+<div id="devices" class="devices"></div>
+
+<!-- SOCIALS RESTORED -->
+<div class="member-socials">
+
+<a href="https://discord.gg/2SmMSSkmmv" target="_blank">
+<i class="fa-brands fa-discord"></i>
+</a>
+
+<a href="https://fjfg11.github.io/" target="_blank">
+<i class="fa-solid fa-earth-americas"></i>
+</a>
+
+<a href="https://www.roblox.com/users/421517931/profile" target="_blank">
+<i class="fa-solid fa-gamepad"></i>
+</a>
+
+</div>
+
+</div>
 
 </div>
 
 <script>
 
 const USER_ID = "1193285201783181361";
-
 let timer;
 
 const socket = new WebSocket("wss://api.lanyard.rest/socket");
 
 socket.onopen = () => {
   socket.send(JSON.stringify({
-    op: 2,
-    d: { subscribe_to_id: USER_ID }
+    op:2,
+    d:{ subscribe_to_id: USER_ID }
   }));
 };
 
 socket.onmessage = (msg) => {
 
-  const data = JSON.parse(msg.data);
+  const res = JSON.parse(msg.data);
+  if(!res.d) return;
 
-  if(!data || !data.d) return;
+  const d = res.d;
 
-  const d = data.d;
+  /* REMOVE SKELETON */
+  document.querySelectorAll(".skeleton")
+    .forEach(el => el.classList.remove("skeleton"));
 
   document.getElementById("username").textContent =
     d.discord_user.global_name || d.discord_user.username;
@@ -395,83 +289,84 @@ socket.onmessage = (msg) => {
   document.getElementById("avatar").src =
     `https://cdn.discordapp.com/avatars/${USER_ID}/${d.discord_user.avatar}.png`;
 
+  /* BANNER BACKGROUND */
+  if(d.discord_user.banner){
+    document.body.style.setProperty(
+      "--bg-image",
+      `url(https://cdn.discordapp.com/banners/${USER_ID}/${d.discord_user.banner}.png?size=1024)`
+    );
+    document.body.style.backgroundImage =
+      `url(https://cdn.discordapp.com/banners/${USER_ID}/${d.discord_user.banner}.png?size=1024)`;
+  }
+
+  /* STATUS */
   const dot = document.getElementById("status-dot");
   const status = document.getElementById("status");
 
   dot.className = "status-dot";
 
   if(d.discord_status === "online"){
-    dot.classList.add("online");
-    status.textContent = "Online";
+    dot.classList.add("online"); status.textContent="Online";
   } else if(d.discord_status === "idle"){
-    dot.classList.add("idle");
-    status.textContent = "Idle";
+    dot.classList.add("idle"); status.textContent="Idle";
   } else if(d.discord_status === "dnd"){
-    dot.classList.add("dnd");
-    status.textContent = "Do Not Disturb";
+    dot.classList.add("dnd"); status.textContent="Do Not Disturb";
   } else {
-    dot.classList.add("offline");
-    status.textContent = "Offline";
+    dot.classList.add("offline"); status.textContent="Offline";
   }
 
+  /* DEVICES */
   const devices = [];
   if(d.active_on_discord_desktop) devices.push("🖥 Desktop");
   if(d.active_on_discord_mobile) devices.push("📱 Mobile");
   if(d.active_on_discord_web) devices.push("🌐 Web");
 
   document.getElementById("devices").textContent =
-    devices.join(" • ") || "No active devices";
+    devices.join(" • ");
 
-  const spotify = document.getElementById("spotify-card");
+  /* SPOTIFY */
+  const sp = document.getElementById("spotify-card");
 
   if(d.listening_to_spotify){
-    spotify.style.display = "flex";
+    sp.style.display="flex";
     document.getElementById("spotify-song").textContent = d.spotify.song;
     document.getElementById("spotify-artist").textContent = d.spotify.artist;
   } else {
-    spotify.style.display = "none";
+    sp.style.display="none";
   }
 
-  const activity = d.activities?.find(a => a.type === 0 && a.name !== "Spotify");
-
+  /* ACTIVITY */
+  const a = d.activities?.find(x=>x.type===0 && x.name!=="Spotify");
   const card = document.getElementById("activity-card");
   const img = document.getElementById("activity-image");
 
-  if(activity){
+  if(a){
 
-    card.style.display = "flex";
+    card.style.display="flex";
 
-    document.getElementById("activity-name").textContent = activity.name;
-    document.getElementById("activity-type").textContent =
-      activity.details || "Active";
+    document.getElementById("activity-name").textContent=a.name;
+    document.getElementById("activity-type").textContent=a.details||"Active";
 
-    if(activity.timestamps?.start){
-
+    if(a.timestamps?.start){
       clearInterval(timer);
-
-      timer = setInterval(() => {
-
-        const diff = Date.now() - activity.timestamps.start;
-
-        const h = Math.floor(diff / 3600000);
-        const m = Math.floor((diff % 3600000) / 60000);
-        const s = Math.floor((diff % 60000) / 1000);
-
-        document.getElementById("activity-time").textContent =
+      timer=setInterval(()=>{
+        const diff=Date.now()-a.timestamps.start;
+        const h=Math.floor(diff/3600000);
+        const m=Math.floor((diff%3600000)/60000);
+        const s=Math.floor((diff%60000)/1000);
+        document.getElementById("activity-time").textContent=
           `${h}h ${m}m ${s}s`;
-
-      }, 1000);
+      },1000);
     }
 
-    if(activity.assets?.large_image){
-      img.style.display = "block";
-      img.src =
-        `https://cdn.discordapp.com/app-assets/${activity.application_id}/${activity.assets.large_image}.png`;
+    if(a.assets?.large_image){
+      img.style.display="block";
+      img.src=`https://cdn.discordapp.com/app-assets/${a.application_id}/${a.assets.large_image}.png`;
     }
 
   } else {
-    card.style.display = "none";
-    img.style.display = "none";
+    card.style.display="none";
+    img.style.display="none";
   }
 
 };
