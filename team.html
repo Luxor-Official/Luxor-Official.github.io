@@ -143,6 +143,24 @@ nav{
   border-radius:24px;
   padding:26px;
   transition:.2s;
+
+  background-size:cover;
+  background-position:center;
+  position:relative;
+  overflow:hidden;
+}
+
+.team-card::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:rgba(13,13,16,.78);
+  z-index:0;
+}
+
+.team-card > *{
+  position:relative;
+  z-index:1;
 }
 
 .team-card:hover{
@@ -200,55 +218,22 @@ nav{
   opacity:.6;
 }
 
-.online{
-  background:#43b581;
-}
+.online{ background:#43b581; }
+.online::after{ background:#43b581; }
 
-.online::after{
-  background:#43b581;
-}
+.idle{ background:#faa61a; }
+.idle::after{ background:#faa61a; }
 
-.idle{
-  background:#faa61a;
-}
+.dnd{ background:#ed4245; }
+.dnd::after{ background:#ed4245; }
 
-.idle::after{
-  background:#faa61a;
-}
-
-.dnd{
-  background:#ed4245;
-}
-
-.dnd::after{
-  background:#ed4245;
-}
-
-.offline{
-  background:#747f8d;
-}
-
-.offline::after{
-  background:#747f8d;
-}
+.offline{ background:#747f8d; }
+.offline::after{ background:#747f8d; }
 
 @keyframes pulse{
-
-  0%{
-    transform:scale(1);
-    opacity:.7;
-  }
-
-  70%{
-    transform:scale(2.2);
-    opacity:0;
-  }
-
-  100%{
-    transform:scale(1);
-    opacity:0;
-  }
-
+  0%{ transform:scale(1); opacity:.7; }
+  70%{ transform:scale(2.2); opacity:0; }
+  100%{ transform:scale(1); opacity:0; }
 }
 
 .member-status{
@@ -335,34 +320,14 @@ nav{
   gap:14px;
 }
 
-.socials a{
-  transition:.15s;
-}
-
-.socials a:hover{
-  color:var(--text);
-}
+.socials a{ transition:.15s; }
+.socials a:hover{ color:var(--text); }
 
 @media(max-width:700px){
-
-  nav{
-    flex-direction:column;
-    gap:24px;
-  }
-
-  .nav-links{
-    flex-wrap:wrap;
-    justify-content:center;
-  }
-
-  .hero h1{
-    font-size:46px;
-  }
-
-  .section-title{
-    font-size:30px;
-  }
-
+  nav{ flex-direction:column; gap:24px; }
+  .nav-links{ flex-wrap:wrap; justify-content:center; }
+  .hero h1{ font-size:46px; }
+  .section-title{ font-size:30px; }
 }
 
 </style>
@@ -373,13 +338,11 @@ nav{
 <div class="page">
 
 <nav>
-
   <ul class="nav-links">
     <li><a href="index.html">Home</a></li>
     <li><a href="PrivacyPol.html">Privacy Policy</a></li>
     <li><a href="ToS.html">Terms Of Service</a></li>
   </ul>
-
 </nav>
 
 <section class="hero">
@@ -389,9 +352,7 @@ nav{
     The Developers
   </div>
 
-  <h1>
-    Built by developers focused on quality.
-  </h1>
+  <h1>Built by developers focused on quality.</h1>
 
   <p>
     Luxor is maintained by a small team of 1 person focused on
@@ -402,50 +363,28 @@ nav{
 
 <section class="section">
 
-  <div class="section-sub">
-    Members
-  </div>
-
-  <div class="section-title">
-    Core Team
-  </div>
+  <div class="section-sub">Members</div>
+  <div class="section-title">Core Team</div>
 
   <div class="team-grid">
 
-    <div class="team-card">
+    <div class="team-card" id="team-card">
 
       <div class="team-top">
 
-        <img
-          id="avatar"
-          class="lanyard-avatar"
+        <img id="avatar" class="lanyard-avatar"
           src="https://cdn.discordapp.com/embed/avatars/0.png"
-          alt="Avatar"
-        />
+          alt="Avatar"/>
 
         <div>
 
-          <div class="member-name" id="username">
-            Loading...
-          </div>
+          <div class="member-name" id="username">Loading...</div>
 
-          <div class="member-role">
-            Founder + Lead Developer
-          </div>
+          <div class="member-role">Founder + Lead Developer</div>
 
           <div class="status-wrapper">
-
-            <div
-              class="status-dot offline"
-              id="status-dot">
-            </div>
-
-            <div
-              class="member-status"
-              id="status">
-              Fetching status...
-            </div>
-
+            <div class="status-dot offline" id="status-dot"></div>
+            <div class="member-status" id="status">Fetching status...</div>
           </div>
 
         </div>
@@ -457,43 +396,18 @@ nav{
         creating helpful systems every day!
       </p>
 
-      <div
-        class="spotify-card"
-        id="spotify-card"
-        style="display:none;">
-
+      <div class="spotify-card" id="spotify-card" style="display:none;">
         <i class="fa-brands fa-spotify"></i>
-
         <div class="spotify-text">
-
-          <div
-            class="spotify-song"
-            id="spotify-song">
-          </div>
-
-          <div
-            class="spotify-artist"
-            id="spotify-artist">
-          </div>
-
+          <div class="spotify-song" id="spotify-song"></div>
+          <div class="spotify-artist" id="spotify-artist"></div>
         </div>
-
       </div>
 
       <div class="member-socials">
-
-        <a href="https://github.com/FJFG11">
-          <i class="fa-brands fa-github"></i>
-        </a>
-
-         <a href="https://fjfg11.github.io/">
-          <i class="fa-solid fa-earth-americas"></i>
-        </a>
-
-         <a href="https://www.roblox.com/users/421517931/profile">
-          <i class="fa-solid fa-gamepad"></i>
-        </a>
-
+        <a href="https://github.com/FJFG11"><i class="fa-brands fa-github"></i></a>
+        <a href="https://fjfg11.github.io/"><i class="fa-solid fa-earth-americas"></i></a>
+        <a href="https://www.roblox.com/users/421517931/profile"><i class="fa-solid fa-gamepad"></i></a>
       </div>
 
     </div>
@@ -503,23 +417,12 @@ nav{
 </section>
 
 <footer class="footer">
-
-  <div>
-    © 2026 Luxor. All rights reserved.
-  </div>
+  <div>© 2026 Luxor. All rights reserved.</div>
 
   <div class="socials">
-
-    <a href="https://github.com/FJFG11">
-      <i class="fa-brands fa-github"></i>
-    </a>
-
-    <a href="https://discord.gg/2SmMSSkmmv">
-      <i class="fa-brands fa-discord"></i>
-    </a>
-
+    <a href="https://github.com/FJFG11"><i class="fa-brands fa-github"></i></a>
+    <a href="https://discord.gg/2SmMSSkmmv"><i class="fa-brands fa-discord"></i></a>
   </div>
-
 </footer>
 
 </div>
@@ -527,6 +430,9 @@ nav{
 <script>
 
 const USER_ID = "1193285201783181361";
+
+/* YOUR REPO PATH */
+const LOCAL_BANNER = "images/banner.webp";
 
 async function loadLanyard(){
 
@@ -537,7 +443,6 @@ async function loadLanyard(){
     );
 
     const json = await response.json();
-
     const data = json.data;
 
     document.getElementById("username").textContent =
@@ -546,68 +451,43 @@ async function loadLanyard(){
     document.getElementById("avatar").src =
       `https://cdn.discordapp.com/avatars/${USER_ID}/${data.discord_user.avatar}.png`;
 
+    document.getElementById("team-card").style.backgroundImage =
+      `url('${LOCAL_BANNER}')`;
+
     const status = data.discord_status;
 
-    const statusText =
-      document.getElementById("status");
-
-    const statusDot =
-      document.getElementById("status-dot");
+    const statusText = document.getElementById("status");
+    const statusDot = document.getElementById("status-dot");
 
     statusDot.className = "status-dot";
 
     if(status === "online"){
-
       statusDot.classList.add("online");
       statusText.textContent = "Online";
-
     }
-
     else if(status === "idle"){
-
       statusDot.classList.add("idle");
       statusText.textContent = "Idle";
-
     }
-
     else if(status === "dnd"){
-
       statusDot.classList.add("dnd");
       statusText.textContent = "Do Not Disturb";
-
     }
-
     else{
-
       statusDot.classList.add("offline");
       statusText.textContent = "Offline";
-
     }
 
     if(data.listening_to_spotify){
-
-      document.getElementById(
-        "spotify-card"
-      ).style.display = "flex";
-
-      document.getElementById(
-        "spotify-song"
-      ).textContent = data.spotify.song;
-
-      document.getElementById(
-        "spotify-artist"
-      ).textContent = data.spotify.artist;
-
+      document.getElementById("spotify-card").style.display = "flex";
+      document.getElementById("spotify-song").textContent = data.spotify.song;
+      document.getElementById("spotify-artist").textContent = data.spotify.artist;
     }
 
-  }
-
-  catch(error){
-
-    document.getElementById(
-      "status"
-    ).textContent = "Failed to load";
-
+  } catch(error){
+    document.getElementById("status").textContent = "Failed to load";
+    document.getElementById("team-card").style.backgroundImage =
+      `url('${LOCAL_BANNER}')`;
   }
 
 }
