@@ -9,7 +9,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
 
 <style>
-/* --- Base Theme (same as main site) --- */
+/* --- Base Theme --- */
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
 :root{
 --bg:#0d0d10;
@@ -17,8 +17,10 @@
 --muted:#8a8a95;
 --muted2:#5e5e68;
 --card:#151519;
+--card2:#1a1a1f;
 --border:#232329;
 --hover:#1b1b20;
+--glow:rgba(255,255,255,0.06);
 }
 
 body{
@@ -31,22 +33,29 @@ overflow-x:hidden;
 /* --- Layout --- */
 .docs-page{
 display:flex;
-max-width:1300px;
+max-width:1400px;
 margin:auto;
-padding:40px 24px 100px;
-gap:40px;
+padding:50px 24px 120px;
+gap:50px;
 }
 
 /* --- Sidebar --- */
 .sidebar{
-width:260px;
+width:270px;
 background:var(--card);
 border:1px solid var(--border);
-border-radius:20px;
-padding:28px;
+border-radius:22px;
+padding:32px;
 height:max-content;
 position:sticky;
 top:40px;
+box-shadow:0 0 40px var(--glow);
+transition:.2s;
+}
+
+.sidebar:hover{
+transform:translateY(-2px);
+box-shadow:0 0 55px var(--glow);
 }
 
 .sidebar-title{
@@ -67,14 +76,15 @@ gap:10px;
 .sidebar-links a{
 font-size:14px;
 color:var(--muted);
-padding:8px 10px;
-border-radius:8px;
+padding:10px 12px;
+border-radius:10px;
 transition:.15s;
 }
 
 .sidebar-links a:hover{
 background:var(--hover);
 color:var(--text);
+transform:translateX(3px);
 }
 
 /* --- Main Content --- */
@@ -83,77 +93,89 @@ flex:1;
 }
 
 .docs-header{
-margin-bottom:40px;
+margin-bottom:50px;
+padding-bottom:20px;
+border-bottom:1px solid var(--border);
 }
 
 .docs-header h1{
-font-size:46px;
+font-size:52px;
 letter-spacing:-2px;
-margin-bottom:12px;
+margin-bottom:14px;
 }
 
 .docs-header p{
 color:var(--muted);
-font-size:15px;
-line-height:1.8;
-max-width:700px;
+font-size:16px;
+line-height:1.85;
+max-width:750px;
 }
 
-/* --- Section Blocks --- */
+/* --- Sections --- */
 .docs-section{
-margin-bottom:60px;
+margin-bottom:70px;
+padding-bottom:20px;
+border-bottom:1px solid var(--border);
 }
 
 .docs-section h2{
-font-size:28px;
+font-size:30px;
 letter-spacing:-1px;
-margin-bottom:16px;
+margin-bottom:18px;
 }
 
 .docs-section p{
 color:var(--muted);
 font-size:15px;
-line-height:1.85;
-max-width:800px;
+line-height:1.9;
+max-width:820px;
 }
 
-/* --- Cards (Cmdr-style warnings/info) --- */
+/* --- Cards --- */
 .docs-card{
-background:var(--card);
+background:var(--card2);
 border:1px solid var(--border);
-border-radius:18px;
-padding:24px;
-margin-top:20px;
+border-radius:20px;
+padding:28px;
+margin-top:22px;
+box-shadow:0 0 35px var(--glow);
+transition:.2s;
+}
+
+.docs-card:hover{
+transform:translateY(-3px);
+box-shadow:0 0 55px var(--glow);
 }
 
 .docs-card-label{
 display:inline-flex;
 align-items:center;
 gap:8px;
-padding:6px 12px;
+padding:7px 14px;
 border-radius:999px;
 background:#111115;
 border:1px solid var(--border);
 color:var(--muted);
 font-size:12px;
-margin-bottom:16px;
+margin-bottom:18px;
 }
 
 .docs-card p{
 color:var(--muted);
-font-size:14px;
-line-height:1.8;
+font-size:15px;
+line-height:1.85;
 }
 
-/* --- Code Blocks --- */
+/* --- Code Block --- */
 .code-block{
 background:#111115;
 border:1px solid var(--border);
-padding:18px;
-border-radius:12px;
+padding:20px;
+border-radius:14px;
 font-size:14px;
-margin-top:16px;
+margin-top:18px;
 white-space:pre-wrap;
+box-shadow:0 0 25px var(--glow);
 }
 
 /* --- Responsive --- */
@@ -195,7 +217,7 @@ white-space:pre-wrap;
 <p>Learn how to install and use Luxor assets inside your Roblox experience. This guide walks you through installation, integration, and best practices.</p>
 </div>
 
-<!-- Section: Installation -->
+<!-- Installation -->
 <div class="docs-section">
 <h2>Installation</h2>
 <p>Choose one of the following methods to install Luxor assets into your Roblox project.</p>
@@ -211,7 +233,7 @@ white-space:pre-wrap;
 </div>
 </div>
 
-<!-- Section: Warning -->
+<!-- Warning -->
 <div class="docs-section">
 <h2>Important Notice</h2>
 
@@ -223,7 +245,7 @@ Modifying source code may break updates and reduce compatibility.</p>
 </div>
 </div>
 
-<!-- Section: Example -->
+<!-- Example -->
 <div class="docs-section">
 <h2>Basic Usage</h2>
 <p>Once installed, you can load your Luxor asset using the Loader module:</p>
