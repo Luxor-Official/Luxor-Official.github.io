@@ -30,6 +30,31 @@ font-family:'Geist',sans-serif;
 overflow-x:hidden;
 }
 
+/* --- Cmdr-style top navbar --- */
+.top-nav{
+width:100%;
+background:var(--card);
+border-bottom:1px solid var(--border);
+padding:16px 32px;
+display:flex;
+align-items:center;
+gap:32px;
+position:sticky;
+top:0;
+z-index:50;
+box-shadow:0 0 25px var(--glow);
+}
+
+.top-nav a{
+color:var(--muted);
+font-size:14px;
+transition:.15s;
+}
+
+.top-nav a:hover{
+color:var(--text);
+}
+
 /* --- Page Layout (Cmdr-style) --- */
 .docs-wrapper{
 display:flex;
@@ -41,38 +66,36 @@ gap:50px;
 
 /* --- Sidebar (Cmdr accurate) --- */
 .sidebar{
-width:260px;
+width:240px;
 flex-shrink:0;
-background:var(--card);
-border:1px solid var(--border);
-border-radius:20px;
-padding:28px;
-height:max-content;
-position:sticky;
-top:40px;
-box-shadow:0 0 40px var(--glow);
+padding-right:10px;
+border-right:1px solid var(--border);
+}
+
+.sidebar-group{
+margin-bottom:28px;
 }
 
 .sidebar-title{
-font-size:13px;
+font-size:12px;
 color:var(--muted2);
 text-transform:uppercase;
 letter-spacing:.14em;
-margin:20px 0 12px;
+margin-bottom:10px;
 }
 
 .sidebar-links{
 list-style:none;
 display:flex;
 flex-direction:column;
-gap:6px;
+gap:4px;
 }
 
 .sidebar-links a{
 font-size:14px;
 color:var(--muted);
-padding:8px 10px;
-border-radius:8px;
+padding:6px 4px;
+border-radius:6px;
 transition:.15s;
 }
 
@@ -118,10 +141,9 @@ margin-bottom:14px;
 .docs-card{
 background:var(--card2);
 border:1px solid var(--border);
-border-radius:16px;
-padding:22px;
+border-radius:14px;
+padding:20px;
 margin-top:18px;
-box-shadow:0 0 25px var(--glow);
 }
 
 .docs-card-label{
@@ -151,17 +173,26 @@ margin-top:16px;
 /* Responsive */
 @media(max-width:900px){
 .docs-wrapper{flex-direction:column;}
-.sidebar{width:100%;position:relative;top:0;}
+.sidebar{width:100%;border-right:none;padding-right:0;}
 }
 </style>
 </head>
 <body>
+
+<!-- Cmdr-style top navbar -->
+<div class="top-nav">
+<a href="#">Guide</a>
+<a href="#">API Reference</a>
+<a href="#">Examples</a>
+<a href="#">Changelog</a>
+</div>
 
 <div class="docs-wrapper">
 
 <!-- Sidebar -->
 <aside class="sidebar">
 
+<div class="sidebar-group">
 <div class="sidebar-title">Guide</div>
 <ul class="sidebar-links">
 <li><a href="#">Setup</a></li>
@@ -170,7 +201,9 @@ margin-top:16px;
 <li><a href="#">Integration</a></li>
 <li><a href="#">Troubleshooting</a></li>
 </ul>
+</div>
 
+<div class="sidebar-group">
 <div class="sidebar-title">API Reference</div>
 <ul class="sidebar-links">
 <li><a href="#">Asset Loader</a></li>
@@ -178,6 +211,7 @@ margin-top:16px;
 <li><a href="#">Update Handler</a></li>
 <li><a href="#">Security</a></li>
 </ul>
+</div>
 
 </aside>
 
